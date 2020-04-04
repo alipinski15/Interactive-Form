@@ -17,9 +17,8 @@ document.getElementById("other-title").hidden = true;
 const job_role = document.getElementById("title");
 job_role.addEventListener("change", (e) => {
     let other = document.querySelectorAll("#title option")[5];
-    other = event.target.value;
     let job_title = document.getElementById("other-title");
-    if(event.target.value === other){
+    if(event.target.value === other.value){
         job_title.hidden = false;
     } else {
         job_title.hidden = "true";
