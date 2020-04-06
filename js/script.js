@@ -52,21 +52,15 @@ design_select.addEventListener("change", (e) => {
     const i_heart = document.querySelectorAll("#design option")[2];
     for(let i = 1; i < shirt_options.length; i++){
         shirt_options[i].style.display = "none";
-        if(i<4){
-            shirt_options.className = "js_puns";
-        } else {
-            shirt_options.className = "i_heart_js";
+        if(e.target.value === js_puns.value){
+            shirt_options[1].style.display = "block";
+            shirt_options[2].style.display = "block";
+            shirt_options[3].style.display = "block";
+        } else if(e.target.value === i_heart.value){
+            shirt_options[4].style.display = "block";
+            shirt_options[5].style.display = "block";
+            shirt_options[6].style.display = "block";
         }
-    }
-    if(e.target.value === js_puns.value){
-        shirt_options[1].style.display = "block";
-        shirt_options[2].style.display = "block";
-        shirt_options[3].style.display = "block";
-    }
-    if(e.target.value === i_heart.value){
-        shirt_options[4].style.display = "block";
-        shirt_options[5].style.display = "block";
-        shirt_options[6].style.display = "block";
     }
 });
 
