@@ -41,10 +41,16 @@ const color_select = () => {
 }
 color_select();
 
+
 /*Creates an Event Listener on the Design menu. Selecting the theme 'JS Puns'
 option, only shows the JS Puns color options in the Color drop down menu. Selecting 
 the 'I heart JS' theme, only shows the I Heart color options*/
 const design_select = document.getElementById("design");
+const color_menu = document.getElementById("color").children;
+
+for(let j = 1; j < color_menu.length; j++){
+    color_menu[j].hidden = true;
+}
 
 design_select.addEventListener("change", (e) => {
     const shirt_options = document.querySelectorAll("#color option");
@@ -63,4 +69,3 @@ design_select.addEventListener("change", (e) => {
         }
     }
 });
-
