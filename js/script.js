@@ -59,13 +59,56 @@ design_select.addEventListener("change", (e) => {
     for(let i = 1; i < shirt_options.length; i++){
         shirt_options[i].style.display = "none";
         if(e.target.value === js_puns.value){
+            shirt_options[1].selected = true;
             shirt_options[1].style.display = "block";
             shirt_options[2].style.display = "block";
             shirt_options[3].style.display = "block";
         } else if(e.target.value === i_heart.value){
+            shirt_options[4].selected = true;
             shirt_options[4].style.display = "block";
             shirt_options[5].style.display = "block";
             shirt_options[6].style.display = "block";
         }
     }
+});
+
+const activities = document.querySelector('.activities');
+const total = document.createElement('label');
+activities.appendChild(total);
+let total_cost = 0;
+
+activities.addEventListener('change', (e) => {
+    const is_checked = e.target.checked;
+    const un_checked = e.target.unchecked;
+    const cost = parseInt(e.target.getAttribute("data-cost"));
+    const act_inputs = document.querySelectorAll(".activities input");
+    const selected = e.target.getAttribute("data-day-and-time");
+    if(is_checked){
+        total_cost += cost;
+        total.innerHTML = "Total= $ " + total_cost;
+    } else {
+        total_cost -= cost;
+        total.innerHTML = "Total= $ " + total_cost;
+    }
+    if(total_cost === 0){
+        total.style.display = "none";
+    } else {
+        total.style.display = "block";
+    }
+    for(let i = 1; i < act_inputs.length; i++){
+        let calender = act_inputs[i].getAttribute("data-day-and-time");
+        if(calender === selected && is_checked === true && calender !== is_checked){
+            calender.disabled = true;
+        }
+    }
+    console.log(selected);
+});
+
+const payment_menu = document.getElementById('payment')
+
+payment_menu.addEventListener('change', (e) => {
+    const select_pay = document.getElementById("payment").firstElementChild.hidden = true;
+    const payment_method = e.target.getAttribute("value");
+    
+    console.log(payment_method);
 });
