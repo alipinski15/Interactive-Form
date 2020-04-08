@@ -99,7 +99,7 @@ activities.addEventListener('change', (e) => {
         let calender = act_inputs[i].getAttribute("data-day-and-time");
         if(calender === selected && is_checked && e.target !== act_inputs[i]){
             act_inputs[i].disabled = true;
-        } else if(){
+        } else {
             act_inputs[i].disabled = false; 
         }
     }
