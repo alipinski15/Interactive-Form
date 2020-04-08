@@ -99,17 +99,18 @@ activities.addEventListener('change', (e) => {
         let calender = act_inputs[i].getAttribute("data-day-and-time");
         if(calender === selected && is_checked && e.target !== act_inputs[i]){
             act_inputs[i].disabled = true;
-            
+        } else if(){
+            act_inputs[i].disabled = false; 
         }
     }
     
 });
 
-const payment_menu = document.getElementById('payment')
+// const payment_menu = document.getElementById('payment')
 
-payment_menu.addEventListener('change', (e) => {
-    const select_pay = document.getElementById("payment").firstElementChild.hidden = true;
-    const payment_method = e.target.getAttribute("value");
+// payment_menu.addEventListener('change', (e) => {
+//     const select_pay = document.getElementById("payment").firstElementChild.hidden = true;
+//     const payment_method = e.target.getAttribute("value");
     
-    console.log(payment_method);
-});
+//     console.log(payment_method);
+// });
