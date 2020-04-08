@@ -97,11 +97,12 @@ activities.addEventListener('change', (e) => {
     }
     for(let i = 1; i < act_inputs.length; i++){
         let calender = act_inputs[i].getAttribute("data-day-and-time");
-        if(calender === selected && is_checked === true && calender !== is_checked){
-            calender.disabled = true;
+        if(calender === selected && is_checked && e.target !== act_inputs[i]){
+            act_inputs[i].disabled = true;
+            
         }
     }
-    console.log(selected);
+    
 });
 
 const payment_menu = document.getElementById('payment')
