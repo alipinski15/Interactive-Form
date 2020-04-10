@@ -144,11 +144,11 @@ payment_menu.addEventListener('change', (e) => {
 //Global variables for Form Validation. 
 
 const name_field = document.getElementById("name");
-const email_field = document.getElementById("mail");
-const activities_field = document.getElementsByClassName(".activities");
-const credit_field = document.getElementById("cc-num");
-const zipcode_field =document.getElementById("zip");
-const cvv_field = document.getElementById("cvv");
+const email_field = document.querySelector("#mail");
+const activities_field = document.querySelector(".activities");
+const credit_field = document.querySelector("#cc-num");
+const zipcode_field =document.querySelector("#zip");
+const cvv_field = document.querySelector("#cvv");
 
 //Validation functions
 
@@ -172,3 +172,8 @@ function valid_cvv(cvv){
     return /^\d{3}$/.test(cvv);
 }
 
+//This group of functions test the value of the input field and compares it to
+function name_test(){
+    return valid_name(name_field.value);
+}
+name_test();
