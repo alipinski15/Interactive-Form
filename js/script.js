@@ -121,8 +121,7 @@ const payment_menu = document.getElementById("payment");
 then only shows the appropriate payment info necessary. */
 
 payment_menu.addEventListener('change', (e) => {
-    const select_pay = document.getElementById("payment").firstElementChild.hidden = true;
-    const payment_options = document.querySelectorAll("#payment option");
+    document.getElementById("payment").firstElementChild.hidden = true;
     const credit = document.getElementById("credit-card");
     const pay_pal = document.getElementById("paypal");
     const bitcoin = document.getElementById("bitcoin");
@@ -156,6 +155,18 @@ function valid_name(name) {
     return /^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/.test(name);
 }
 
+function name_tip_showORHide(show){
+    if(show){
+        name_field.style.borderColor = "red";
+        let name_label = name_field.previousElementSibling;
+        name_label.textContent = "Please provide a valid Name (Upper and Lowercase only, hyphens accepted");
+    } else {
+        name_field.style.borderColor = "black";
+        let name_label = name_filed.previousElementSibling;
+        name_label.textContent = "Name";
+    }
+} 
+
 function valid_email(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
@@ -172,8 +183,8 @@ function valid_cvv(cvv){
     return /^\d{3}$/.test(cvv);
 }
 
-//This group of functions test the value of the input field and compares it to
-function name_test(){
-    return valid_name(name_field.value);
-}
-name_test();
+
+
+
+
+
