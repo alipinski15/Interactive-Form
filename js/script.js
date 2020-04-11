@@ -107,8 +107,10 @@ activities.addEventListener('change', (e) => {
         if(calender === selected && e.target !== act_inputs[i]){
             if(is_checked){
                 act_inputs[i].disabled = true;
+                act_inputs[i].parentElement.style.color = "#252a2b";
             } else {
                 act_inputs[i].disabled = false;
+                act_inputs[i].parentElement.style.color = "inherit";
             }
         }
     }
@@ -143,46 +145,191 @@ payment_menu.addEventListener('change', (e) => {
 //Global variables for Form Validation. 
 
 const name_field = document.getElementById("name");
-const email_field = document.querySelector("#mail");
+const email_field = document.getElementById("mail");
 const activities_field = document.querySelector(".activities");
-const credit_field = document.querySelector("#cc-num");
-const zipcode_field =document.querySelector("#zip");
-const cvv_field = document.querySelector("#cvv");
+const credit_field = document.getElementById("cc-num");
+const zipcode_field =document.getElementById("zip");
+const cvv_field = document.getElementById("cvv");
 
-//Validation functions
+//*********Validation functions***********//
+
+//---------------Name Field-----------------//
+/* The next three functions check to see if the values inputted in the fields provided, match the Regex provided.
+   If they are not correct a message is displayed. Or the particular Field title is changes to red. 
+   Once requirements are correct, the Title turns green. */
 
 function valid_name(name) {
     return /^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/.test(name);
 }
 
-function name_tip_showORHide(show){
+function name_tip_showORHide(show, element){
     if(show){
-        name_field.style.borderColor = "red";
-        let name_label = name_field.previousElementSibling;
-        name_label.textContent = "Please provide a valid Name (Upper and Lowercase only, hyphens accepted");
+        element.nextElementSibling.style.borderColor = "red";
+        element.textContent = "Please provide a valid Name (Upper and Lowercase only, hyphens accepted)";
+        element.style.color = "red";
+        console.log(element.nextElementSibling);
     } else {
-        name_field.style.borderColor = "black";
-        let name_label = name_filed.previousElementSibling;
-        name_label.textContent = "Name";
+        element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
+        element.textContent = "Name:";
+        element.style.color = "green";
     }
 } 
+
+function createListenerName(validator) {
+    return e => {
+      const text = e.target.value;
+      const valid = validator(text);
+      const showTip = text !== "" && !valid;
+      const tooltip = e.target.previousElementSibling;
+      name_tip_showORHide(showTip, tooltip);
+    };
+}
+
+//---------------Email Field-----------------//
+/* The next three functions check to see if the values inputted in the fields provided, match the Regex provided.
+   If they are not correct a message is displayed. Or the particular Field title is changes to red. 
+   Once requirements are correct, the Title turns green. */
 
 function valid_email(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
 
+function email_tip_showORHide(show, element){
+    if(show){
+        element.nextElementSibling.style.borderColor = "red";
+        element.textContent = "Please provide a valid Email";
+        element.style.color = "red";
+    } else {
+        element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
+        element.textContent = "Email:";
+        element.style.color = "green";
+    }
+} 
+
+function createListenerEmail(validator) {
+    return e => {
+      const text = e.target.value;
+      const valid = validator(text);
+      const showTip = text !== "" && !valid;
+      const tooltip = e.target.previousElementSibling;
+      email_tip_showORHide(showTip, tooltip);
+    };
+}
+
+//---------------Activities Field-----------------//
+
+//Checks to see if any of the checkboxes have been selected.(Not Done yet)
+function activity_selected(){
+    for(let i = 0; i < activities_field.length; i++){
+        if(activities_field[i].checked){
+            return true;
+        }
+    }
+}
+
+
+//---------------Credit Card Field-----------------//
+/* The next three functions check to see if the values inputted in the fields provided, match the Regex provided.
+   If they are not correct a message is displayed. Or the particular Field title is changes to red. 
+   Once requirements are correct, the Title turns green. */
+
 function valid_credit(cardNum){
     return /^\d{4}-?\d{4}-?\d{4}-?\d{4}|\d{3}-?\d{3}-?\d{3}-?\d{3}$/.test(cardNum);
 }
+
+function credit_tip_showORHide(show, element){
+    if(show){
+        element.nextElementSibling.style.borderColor = "red";
+        element.style.fontColor = "red";
+        element.style.fontSize = "95%";
+        element.style.color = "red";
+    } else {
+        element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
+        element.style.borderColor = "black";
+        element.style.color = "green";
+    }
+} 
+
+function createListenerCredit(validator) {
+    return e => {
+      const text = e.target.value;
+      const valid = validator(text);
+      const showTip = text !== "" && !valid;
+      const tooltip = e.target.previousElementSibling;
+      credit_tip_showORHide(showTip, tooltip);
+    };
+}
+
+//---------------Zip Code Field-----------------//
+/* The next three functions check to see if the values inputted in the fields provided, match the Regex provided.
+   If they are not correct a message is displayed. Or the particular Field title is changes to red. 
+   Once requirements are correct, the Title turns green. */
 
 function valid_zip(zipcode){
     return /^\d{5}$/.test(zipcode);
 }
 
+function zip_tip_showORHide(show, element){
+    if(show){
+        element.nextElementSibling.style.borderColor = "red";
+        element.style.fontColor = "red";
+        element.style.fontSize = "95%";
+        element.style.color = "red";
+    } else {
+        element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
+        element.style.borderColor = "black";
+        element.style.color = "green";
+    }
+} 
+
+function createListenerZip(validator) {
+    return e => {
+      const text = e.target.value;
+      const valid = validator(text);
+      const showTip = text !== "" && !valid;
+      const tooltip = e.target.previousElementSibling;
+      zip_tip_showORHide(showTip, tooltip);
+    };
+}
+
+//---------------CVV Field-----------------//
+/* The next three functions check to see if the values inputted in the fields provided, match the Regex provided.
+   If they are not correct a message is displayed. Or the particular Field title is changes to red. 
+   Once requirements are correct, the Title turns green. */
+
 function valid_cvv(cvv){
     return /^\d{3}$/.test(cvv);
 }
+function cvv_tip_showORHide(show, element){
+    if(show){
+        element.nextElementSibling.style.borderColor = "red";
+        element.style.fontColor = "red";
+        element.style.fontSize = "95%";
+        element.style.color = "red";
+    } else {
+        element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
+        element.style.borderColor = "black";
+        element.style.color = "green";
+    }
+} 
 
+function createListenerCvv(validator) {
+    return e => {
+      const text = e.target.value;
+      const valid = validator(text);
+      const showTip = text !== "" && !valid;
+      const tooltip = e.target.previousElementSibling;
+      cvv_tip_showORHide(showTip, tooltip);
+    };
+}
+
+//These are the Event Listeners for each Input field. 
+
+name_field.addEventListener('input', createListenerName(valid_name));
+email_field.addEventListener('input', createListenerEmail(valid_email));
+credit_field.addEventListener('input', createListenerCredit(valid_credit));
+zipcode_field.addEventListener('input', createListenerZip(valid_zip));
+cvv_field.addEventListener('input', createListenerCvv(valid_cvv));
 
 
 

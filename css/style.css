@@ -16,8 +16,8 @@ button {
 
 body {
   font: 1em/1.5;
-  color: rgba(6, 49, 68, 0.9);
-	background: #CDE0FB;
+  color: rgba(255, 255, 255, 0.85);
+	background: #252a2b;
 }
 
 header {
@@ -26,7 +26,7 @@ header {
 
 h1 {
 	font-size: 2.5em;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+	text-shadow: 0 1px 0 rgba(10, 2, 2, 0.85);
 	margin: 0;
 }
 
@@ -40,8 +40,8 @@ a {
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #9BBEEF;
-	border: 2px solid rgba(8, 63, 87, 0.6);
+	background: #0e3160;
+	border: none;
 	border-radius: 3px;
 }
 
@@ -64,7 +64,7 @@ button {
 legend {
 	font-weight: bold;
 	padding-top: .5em;
-	border-top: 2px solid rgba(8, 63, 87, 0.6);
+	border-top: 2px solid rgba(17, 113, 165, 1);
 	margin-bottom: 1.125em;
 }
 
@@ -75,7 +75,7 @@ legend {
 }
 
 label {
-	color: #000;
+	color: rgb(253, 253, 253);
 	display: block;
 	margin-bottom: .5em;
 }
@@ -89,7 +89,7 @@ input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #e9f6fb;
+	background: #0a2a36;
 	border: 2px solid rgb(111, 157, 220);
 	border-radius: 3px;
 	outline: none;
