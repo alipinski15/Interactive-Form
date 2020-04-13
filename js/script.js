@@ -35,6 +35,9 @@ const cvv_field = document.getElementById("cvv");
 const register_button = document.querySelector("form");
 const activities_message = document.createElement("span");
 
+/*These target the form once loaded. Makes the credit card option selected by default
+and hides the 'Paypal' and 'Bitcoin' messages by default*/
+
 document.querySelectorAll("#payment option")[1].selected = true;
 document.querySelector("#paypal").hidden = true;
 document.querySelector("#bitcoin").hidden = true;
@@ -78,6 +81,7 @@ const color_select = () => {
 }
 color_select();
 
+//This function hides the color menu and appends a message in its place. 
 
 const colorMenu_hide = () => {
     const color_menu = document.getElementById("color");
