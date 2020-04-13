@@ -87,6 +87,7 @@ select {
 
 input {
 	font-size: 1em;
+	color : "white";
 	font-weight: 500;
 	padding: .8em;
 	background: #0a2a36;

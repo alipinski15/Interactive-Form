@@ -48,11 +48,22 @@ option, only shows the JS Puns color options in the Color drop down menu. Select
 the 'I heart JS' theme, only shows the I Heart color options*/
 
 const design_select = document.getElementById("design");
-const color_menu = document.getElementById("color").children;
+const color_menu = document.getElementById("color");
 
 for(let j = 1; j < color_menu.length; j++){
-    color_menu[j].hidden = true;
+    color_menu[j].style.display = "none";
 }
+
+// function colorMenu_hide(){
+//     const color_menu = document.getElementById("color");
+//     const menu_message = document.createElement("p")
+//     const location = color_menu.firstElementChild;
+//     location.appendChild(menu_message)
+//     color_menu.insertBefore(menu_message, location);
+//     menu_message.innerHTML = "Please select a shirt design";
+// }
+// colorMenu_hide();
+
 
 design_select.addEventListener("change", (e) => {
     const shirt_options = document.querySelectorAll("#color option");
@@ -118,15 +129,15 @@ activities.addEventListener('change', (e) => {
 
 //Global variable for the 'Payment' section of the form. 
 const payment_menu = document.getElementById("payment");
+const credit = document.getElementById("credit-card");
+const pay_pal = document.getElementById("paypal");
+const bitcoin = document.getElementById("bitcoin");
 
 /*The Event Listener for the 'Payment Info'. This listens for what payment option ois chosen,
 then only shows the appropriate payment info necessary. */
 
 payment_menu.addEventListener('change', (e) => {
     document.getElementById("payment").firstElementChild.hidden = true;
-    const credit = document.getElementById("credit-card");
-    const pay_pal = document.getElementById("paypal");
-    const bitcoin = document.getElementById("bitcoin");
     if(e.target.value === "credit card"){
         credit.style.display = "block";
         pay_pal.style.display = "none";
@@ -146,10 +157,13 @@ payment_menu.addEventListener('change', (e) => {
 
 const name_field = document.getElementById("name");
 const email_field = document.getElementById("mail");
-const activities_field = document.querySelector(".activities");
+const activities_field = document.querySelectorAll(".activities input");
 const credit_field = document.getElementById("cc-num");
 const zipcode_field =document.getElementById("zip");
 const cvv_field = document.getElementById("cvv");
+const activities_message = document.querySelector(".activities");
+
+
 
 //*********Validation functions***********//
 
@@ -162,18 +176,20 @@ function valid_name(name) {
     return /^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/.test(name);
 }
 
-function name_tip_showORHide(show, element){
+function name_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
         element.textContent = "Please provide a valid Name (Upper and Lowercase only, hyphens accepted)";
         element.style.color = "red";
-        console.log(element.nextElementSibling);
-    } else {
+    }else {
         element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
         element.textContent = "Name:";
         element.style.color = "green";
     }
-} 
+    if(blank){
+        element.style.color = "inherit";
+    }
+}
 
 function createListenerName(validator) {
     return e => {
@@ -181,7 +197,8 @@ function createListenerName(validator) {
       const valid = validator(text);
       const showTip = text !== "" && !valid;
       const tooltip = e.target.previousElementSibling;
-      name_tip_showORHide(showTip, tooltip);
+      const blank = text == "";
+      name_tip_showORHide(showTip, tooltip, blank);
     };
 }
 
@@ -194,15 +211,18 @@ function valid_email(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
 
-function email_tip_showORHide(show, element){
+function email_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
-        element.textContent = "Please provide a valid Email";
+        element.textContent = "Please provide a valid email address";
         element.style.color = "red";
     } else {
         element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
         element.textContent = "Email:";
         element.style.color = "green";
+    }
+    if(blank){
+        element.style.color = "inherit";
     }
 } 
 
@@ -212,19 +232,23 @@ function createListenerEmail(validator) {
       const valid = validator(text);
       const showTip = text !== "" && !valid;
       const tooltip = e.target.previousElementSibling;
-      email_tip_showORHide(showTip, tooltip);
+      const blank = text == "";
+      email_tip_showORHide(showTip, tooltip, blank);
     };
 }
 
 //---------------Activities Field-----------------//
 
-//Checks to see if any of the checkboxes have been selected.(Not Done yet)
+//Checks to see if any of the checkboxes have been selected.
 function activity_selected(){
     for(let i = 0; i < activities_field.length; i++){
-        if(activities_field[i].checked){
-            return true;
+        if(activities_field[i].type === "checkbox"){
+            if(activities_field[i].checked){
+                return true;
+            } 
         }
     }
+    return false;
 }
 
 
@@ -237,7 +261,7 @@ function valid_credit(cardNum){
     return /^\d{4}-?\d{4}-?\d{4}-?\d{4}|\d{3}-?\d{3}-?\d{3}-?\d{3}$/.test(cardNum);
 }
 
-function credit_tip_showORHide(show, element){
+function credit_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
         element.style.fontColor = "red";
@@ -248,6 +272,9 @@ function credit_tip_showORHide(show, element){
         element.style.borderColor = "black";
         element.style.color = "green";
     }
+    if(blank){
+        element.style.color = "inherit";
+    }
 } 
 
 function createListenerCredit(validator) {
@@ -256,7 +283,8 @@ function createListenerCredit(validator) {
       const valid = validator(text);
       const showTip = text !== "" && !valid;
       const tooltip = e.target.previousElementSibling;
-      credit_tip_showORHide(showTip, tooltip);
+      const blank = text == "";
+      credit_tip_showORHide(showTip, tooltip, blank);
     };
 }
 
@@ -269,7 +297,7 @@ function valid_zip(zipcode){
     return /^\d{5}$/.test(zipcode);
 }
 
-function zip_tip_showORHide(show, element){
+function zip_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
         element.style.fontColor = "red";
@@ -280,6 +308,9 @@ function zip_tip_showORHide(show, element){
         element.style.borderColor = "black";
         element.style.color = "green";
     }
+    if(blank){
+        element.style.color = "inherit";
+    }
 } 
 
 function createListenerZip(validator) {
@@ -288,7 +319,8 @@ function createListenerZip(validator) {
       const valid = validator(text);
       const showTip = text !== "" && !valid;
       const tooltip = e.target.previousElementSibling;
-      zip_tip_showORHide(showTip, tooltip);
+      const blank = text == "";
+      zip_tip_showORHide(showTip, tooltip, blank);
     };
 }
 
@@ -300,7 +332,7 @@ function createListenerZip(validator) {
 function valid_cvv(cvv){
     return /^\d{3}$/.test(cvv);
 }
-function cvv_tip_showORHide(show, element){
+function cvv_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
         element.style.fontColor = "red";
@@ -311,7 +343,10 @@ function cvv_tip_showORHide(show, element){
         element.style.borderColor = "black";
         element.style.color = "green";
     }
-} 
+    if(blank){
+        element.style.color = "inherit";
+    }
+}       
 
 function createListenerCvv(validator) {
     return e => {
@@ -319,7 +354,8 @@ function createListenerCvv(validator) {
       const valid = validator(text);
       const showTip = text !== "" && !valid;
       const tooltip = e.target.previousElementSibling;
-      cvv_tip_showORHide(showTip, tooltip);
+      const blank = text == "";
+      cvv_tip_showORHide(showTip, tooltip, blank);
     };
 }
 
@@ -331,7 +367,44 @@ credit_field.addEventListener('input', createListenerCredit(valid_credit));
 zipcode_field.addEventListener('input', createListenerZip(valid_zip));
 cvv_field.addEventListener('input', createListenerCvv(valid_cvv));
 
+const register_button = document.querySelector("form");
 
 
-
-
+register_button.addEventListener('submit', (e) => {
+    if(!valid_name(name_field.value)){
+        name_field.style.borderColor = "red";
+        name_field.previousElementSibling.textContent = "Please provide a valid name";
+        name_field.previousElementSibling.style.color = "red";
+        e.preventDefault();
+    } 
+    if(!valid_email(email_field.value)){
+        email_field.style.borderColor = "red";
+        email_field.previousElementSibling.textContent = "Please provide a valid email";
+        email_field.previousElementSibling.style.color = "red";
+        e.preventDefault();
+    }
+    if(!activity_selected()){
+        const message = document.createElement("span");
+        const location = activities_message.firstElementChild;
+        message.innerHTML = " (Please choose an Activity)";
+        message.style.fontSize = "80%";
+        message.style.color = "red";
+        location.appendChild(message);
+        location.style.color = "red";
+    }
+    if(!valid_credit(credit_field.value) && payment_menu[1].value === "credit card"){
+        credit_field.style.borderColor = "red";
+        credit_field.previousElementSibling.style.color = "red";
+        e.preventDefault();
+    } 
+    if(!valid_zip(zipcode_field.value) && payment_menu[1].value === "credit card"){
+        zipcode_field.style.borderColor = "red";
+        zipcode_field.previousElementSibling.style.color = "red";
+        e.preventDefault();
+    }
+    if(!valid_cvv(cvv_field.value) && payment_menu[1].value === "credit card"){
+        cvv_field.style.borderColor = "red";
+        cvv_field.previousElementSibling.style.color = "red";
+        e.preventDefault();
+    }
+});
