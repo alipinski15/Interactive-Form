@@ -75,15 +75,16 @@ const color_select = () => {
 color_select();
 
 
-// const colorMenu_hide = () => {
-//     const color_menu = document.getElementById("color");
-//     const menu_message = document.createElement("p")
-//     const location = color_menu.firstElementChild;
-//     location.appendChild(menu_message)
-//     color_menu.insertBefore(menu_message, location);
-//     menu_message.innerHTML = "Please select a shirt design";
-// }
-// colorMenu_hide();
+const colorMenu_hide = () => {
+    const color_menu = document.getElementById("color");
+    const menu_message = document.createElement("p")
+    const location = color_menu.parentElement;
+    location.appendChild(menu_message)
+    menu_message.innerHTML = "Please select a shirt design";
+    color_menu.style.display = "none";
+}
+console.log(colorMenu_hide());
+
 
 /*Creates an Event Listener on the Design menu. Selecting the theme 'JS Puns'
 option, only shows the JS Puns color options in the Color drop down menu. Selecting 
@@ -100,6 +101,8 @@ design_select.addEventListener("change", (e) => {
     for(let i = 1; i < shirt_options.length; i++){
         shirt_options[i].style.display = "none";
         if(e.target.value === js_puns.value){
+            color_menu.style.display = "inherit";
+            color_menu.nextElementSibling.remove();
             shirt_options[1].selected = true;
             shirt_options[1].style.display = "block";
             shirt_options[2].style.display = "block";
