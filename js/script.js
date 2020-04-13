@@ -145,19 +145,21 @@ activities.addEventListener('change', (e) => {
     } else {
         total.style.display = "block";
     }
-    for(let i = 1; i < act_inputs.length; i++){
+    for(let i = 0; i < act_inputs.length; i++){
         const calender = act_inputs[i].getAttribute("data-day-and-time");
         if(calender === selected && e.target !== act_inputs[i]){
             if(is_checked){
                 act_inputs[i].disabled = true;
                 act_inputs[i].parentElement.style.color = "#252a2b";
-                activities.firstElementChild.style.color = "white";
-                activities_message.remove();
             } else {
                 act_inputs[i].disabled = false;
                 act_inputs[i].parentElement.style.color = "inherit";
             }
         }
+    }
+    if(activity_selected()){
+        activities.firstElementChild.style.color = "white";
+        activities_message.remove();
     }
 });
 
@@ -275,16 +277,21 @@ function valid_credit(cardNum){
 function credit_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
+        element.textContent = "Please provide a number between 13 & 16 digits";
         element.style.fontColor = "red";
-        element.style.fontSize = "95%";
+        element.style.fontSize = "85%";
         element.style.color = "red";
     } else {
         element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
+        element.textContent = "Card Number:";
+        element.style.fontSize = "100%";
         element.style.borderColor = "black";
         element.style.color = "green";
     }
     if(blank){
-        element.style.color = "inherit";
+        element.textContent = "Card Number:";
+        element.style.fontSize = "100%";
+        element.style.color = "white";
     }
 } 
 function createListenerCredit(validator) {
@@ -309,16 +316,21 @@ function valid_zip(zipcode){
 function zip_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
+        element.textContent = "Please provide a valid Zipcode";
         element.style.fontColor = "red";
-        element.style.fontSize = "95%";
+        element.style.fontSize = "80%";
         element.style.color = "red";
     } else {
         element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
+        element.textContent = "Zip Code:";
+        element.style.fontSize = "100%";
         element.style.borderColor = "black";
         element.style.color = "green";
     }
     if(blank){
-        element.style.color = "inherit";
+        element.textContent = "Zip Code:";
+        element.style.fontSize = "100%";
+        element.style.color = "white";
     }
 } 
 function createListenerZip(validator) {
@@ -343,16 +355,21 @@ function valid_cvv(cvv){
 function cvv_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
+        element.textContent = "Please provide a valid CVV";
         element.style.fontColor = "red";
-        element.style.fontSize = "95%";
+        element.style.fontSize = "80%";
         element.style.color = "red";
     } else {
         element.nextElementSibling.style.borderColor = "rgb(111, 157, 220)";
+        element.textContent = "CVV:";
+        element.style.fontSize = "100%";
         element.style.borderColor = "black";
         element.style.color = "green";
     }
     if(blank){
-        element.style.color = "inherit";
+        element.textContent = "CVV:";
+        element.style.fontSize = "100%";
+        element.style.color = "white";
     }
 }       
 function createListenerCvv(validator) {
@@ -381,13 +398,13 @@ if a field is blank or requirements are not met. Alert messages display in the a
 register_button.addEventListener('submit', (e) => {
     if(!valid_name(name_field.value)){
         name_field.style.borderColor = "red";
-        name_field.previousElementSibling.textContent = "Please provide a valid name";
+        name_field.previousElementSibling.textContent = "A valid First and Last name is required";
         name_field.previousElementSibling.style.color = "red";
         e.preventDefault();
     } 
     if(!valid_email(email_field.value)){
         email_field.style.borderColor = "red";
-        email_field.previousElementSibling.textContent = "Please provide a valid email";
+        email_field.previousElementSibling.textContent = "An email address is required";
         email_field.previousElementSibling.style.color = "red";
         e.preventDefault();
     }
@@ -399,17 +416,17 @@ register_button.addEventListener('submit', (e) => {
         location.appendChild(activities_message);
         location.style.color = "red";
     }
-    if(!valid_credit(credit_field.value) && payment_menu[1].value === "credit card"){
+    if(!valid_credit(credit_field.value) && payment_menu.value === "credit card"){
         credit_field.style.borderColor = "red";
         credit_field.previousElementSibling.style.color = "red";
         e.preventDefault();
     } 
-    if(!valid_zip(zipcode_field.value) && payment_menu[1].value === "credit card"){
+    if(!valid_zip(zipcode_field.value) && payment_menu.value === "credit card"){
         zipcode_field.style.borderColor = "red";
         zipcode_field.previousElementSibling.style.color = "red";
         e.preventDefault();
     }
-    if(!valid_cvv(cvv_field.value) && payment_menu[1].value === "credit card"){
+    if(!valid_cvv(cvv_field.value) && payment_menu.value === "credit card"){
         cvv_field.style.borderColor = "red";
         cvv_field.previousElementSibling.style.color = "red";
         e.preventDefault();
