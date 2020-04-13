@@ -54,7 +54,7 @@ for(let j = 1; j < color_menu.length; j++){
     color_menu[j].style.display = "none";
 }
 
-// function colorMenu_hide(){
+// const colorMenu_hide = () => {
 //     const color_menu = document.getElementById("color");
 //     const menu_message = document.createElement("p")
 //     const location = color_menu.firstElementChild;
