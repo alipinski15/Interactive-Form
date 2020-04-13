@@ -4,6 +4,36 @@ FSJS project 3 - Interactive Form
 Written by: Aaron Lipinski
 ******************************************/
 
+//Global variables for the design menu.
+
+const design_select = document.getElementById("design");
+const color_menu = document.getElementById("color");
+
+//Global variables for at 'Activities section of the form. 
+
+const activities = document.querySelector('.activities');
+const total = document.createElement('label');
+
+//Global variable for the 'Payment' section of the form. 
+
+const payment_menu = document.getElementById("payment");
+const credit = document.getElementById("credit-card");
+const pay_pal = document.getElementById("paypal");
+const bitcoin = document.getElementById("bitcoin");
+
+//Global variables for Form Validation. 
+
+const name_field = document.getElementById("name");
+const email_field = document.getElementById("mail");
+const activities_field = document.querySelectorAll(".activities input");
+const credit_field = document.getElementById("cc-num");
+const zipcode_field =document.getElementById("zip");
+const cvv_field = document.getElementById("cvv");
+
+//Global variable for register button. 
+
+const register_button = document.querySelector("form");
+
 //This function places 'Focus' on the 'input' with the ID of "name".
 
 const focus_name = () => {
@@ -17,8 +47,8 @@ a text field will be displayed to enter a Job Role. */
 document.getElementById("other-title").hidden = true;
 const job_role = document.getElementById("title");
 job_role.addEventListener("change", (e) => {
-    let other = document.querySelectorAll("#title option")[5];
-    let job_title = document.getElementById("other-title");
+    const other = document.querySelectorAll("#title option")[5];
+    const job_title = document.getElementById("other-title");
     if(event.target.value === other.value){
         job_title.hidden = false;
     } else {
@@ -43,16 +73,6 @@ const color_select = () => {
 }
 color_select();
 
-/*Creates an Event Listener on the Design menu. Selecting the theme 'JS Puns'
-option, only shows the JS Puns color options in the Color drop down menu. Selecting 
-the 'I heart JS' theme, only shows the I Heart color options*/
-
-const design_select = document.getElementById("design");
-const color_menu = document.getElementById("color");
-
-for(let j = 1; j < color_menu.length; j++){
-    color_menu[j].style.display = "none";
-}
 
 // const colorMenu_hide = () => {
 //     const color_menu = document.getElementById("color");
@@ -64,6 +84,13 @@ for(let j = 1; j < color_menu.length; j++){
 // }
 // colorMenu_hide();
 
+/*Creates an Event Listener on the Design menu. Selecting the theme 'JS Puns'
+option, only shows the JS Puns color options in the Color drop down menu. Selecting 
+the 'I heart JS' theme, only shows the I Heart color options*/
+
+for(let j = 1; j < color_menu.length; j++){
+    color_menu[j].style.display = "none";
+}
 
 design_select.addEventListener("change", (e) => {
     const shirt_options = document.querySelectorAll("#color option");
@@ -85,22 +112,18 @@ design_select.addEventListener("change", (e) => {
     }
 });
 
-//Global variables for at 'Activities section of the form. 
-
-const activities = document.querySelector('.activities');
-const total = document.createElement('label');
-activities.appendChild(total);
-let total_cost = 0;
-
 /*The Event Listener for the 'Activities' section. This listens for the activities chosen,
 adds the total of those event and displays them at the bottom of the section. Then compares
 the Dates and Times of the events chosen and disables any conflicting events with the same Date and Time.*/
+
+let total_cost = 0;
 
 activities.addEventListener('change', (e) => {
     const is_checked = e.target.checked;
     const cost = parseInt(e.target.getAttribute("data-cost"));
     const act_inputs = document.querySelectorAll(".activities input");
     const selected = e.target.getAttribute("data-day-and-time");
+    activities.appendChild(total);
     if(is_checked){
         total_cost += cost;
         total.innerHTML = "Total= $ " + total_cost;
@@ -127,12 +150,6 @@ activities.addEventListener('change', (e) => {
     }
 });
 
-//Global variable for the 'Payment' section of the form. 
-const payment_menu = document.getElementById("payment");
-const credit = document.getElementById("credit-card");
-const pay_pal = document.getElementById("paypal");
-const bitcoin = document.getElementById("bitcoin");
-
 /*The Event Listener for the 'Payment Info'. This listens for what payment option ois chosen,
 then only shows the appropriate payment info necessary. */
 
@@ -153,16 +170,6 @@ payment_menu.addEventListener('change', (e) => {
     }
 });
 
-//Global variables for Form Validation. 
-
-const name_field = document.getElementById("name");
-const email_field = document.getElementById("mail");
-const activities_field = document.querySelectorAll(".activities input");
-const credit_field = document.getElementById("cc-num");
-const zipcode_field =document.getElementById("zip");
-const cvv_field = document.getElementById("cvv");
-
-
 //*********Validation functions***********//
 
 //---------------Name Field-----------------//
@@ -173,7 +180,6 @@ const cvv_field = document.getElementById("cvv");
 function valid_name(name) {
     return /^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/.test(name);
 }
-
 function name_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
@@ -188,7 +194,6 @@ function name_tip_showORHide(show, element, blank){
         element.style.color = "inherit";
     }
 }
-
 function createListenerName(validator) {
     return e => {
       const text = e.target.value;
@@ -208,7 +213,6 @@ function createListenerName(validator) {
 function valid_email(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
-
 function email_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
@@ -223,7 +227,6 @@ function email_tip_showORHide(show, element, blank){
         element.style.color = "inherit";
     }
 } 
-
 function createListenerEmail(validator) {
     return e => {
       const text = e.target.value;
@@ -249,7 +252,6 @@ function activity_selected(){
     return false;
 }
 
-
 //---------------Credit Card Field-----------------//
 /* The next three functions check to see if the values inputted in the fields provided, match the Regex provided.
    If they are not correct a message is displayed. Or the particular Field title is changes to red. 
@@ -258,7 +260,6 @@ function activity_selected(){
 function valid_credit(cardNum){
     return /^\d{4}-?\d{4}-?\d{4}-?\d{4}|\d{3}-?\d{3}-?\d{3}-?\d{3}$/.test(cardNum);
 }
-
 function credit_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
@@ -274,7 +275,6 @@ function credit_tip_showORHide(show, element, blank){
         element.style.color = "inherit";
     }
 } 
-
 function createListenerCredit(validator) {
     return e => {
       const text = e.target.value;
@@ -294,7 +294,6 @@ function createListenerCredit(validator) {
 function valid_zip(zipcode){
     return /^\d{5}$/.test(zipcode);
 }
-
 function zip_tip_showORHide(show, element, blank){
     if(show){
         element.nextElementSibling.style.borderColor = "red";
@@ -310,7 +309,6 @@ function zip_tip_showORHide(show, element, blank){
         element.style.color = "inherit";
     }
 } 
-
 function createListenerZip(validator) {
     return e => {
       const text = e.target.value;
@@ -345,7 +343,6 @@ function cvv_tip_showORHide(show, element, blank){
         element.style.color = "inherit";
     }
 }       
-
 function createListenerCvv(validator) {
     return e => {
       const text = e.target.value;
@@ -365,9 +362,6 @@ credit_field.addEventListener('input', createListenerCredit(valid_credit));
 zipcode_field.addEventListener('input', createListenerZip(valid_zip));
 cvv_field.addEventListener('input', createListenerCvv(valid_cvv));
 
-//Global variable for register button. 
-
-const register_button = document.querySelector("form");
 
 /*This adds a Listener to the Register button. When the register button is pressed. All fields are checked for valid Info,
 if a field is blank or requirements are not met. Alert messages display in the appropriate area.*/
