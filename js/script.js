@@ -33,6 +33,7 @@ const cvv_field = document.getElementById("cvv");
 //Global variable for register button. 
 
 const register_button = document.querySelector("form");
+const activities_message = document.createElement("span");
 
 //This function places 'Focus' on the 'input' with the ID of "name".
 
@@ -142,6 +143,8 @@ activities.addEventListener('change', (e) => {
             if(is_checked){
                 act_inputs[i].disabled = true;
                 act_inputs[i].parentElement.style.color = "#252a2b";
+                activities.firstElementChild.style.color = "white";
+                activities_message.remove();
             } else {
                 act_inputs[i].disabled = false;
                 act_inputs[i].parentElement.style.color = "inherit";
@@ -251,6 +254,7 @@ function activity_selected(){
     }
     return false;
 }
+
 
 //---------------Credit Card Field-----------------//
 /* The next three functions check to see if the values inputted in the fields provided, match the Regex provided.
@@ -380,12 +384,11 @@ register_button.addEventListener('submit', (e) => {
         e.preventDefault();
     }
     if(!activity_selected()){
-        const message = document.createElement("span");
         const location = activities.firstElementChild;
-        message.innerHTML = " (Please choose an Activity)";
-        message.style.fontSize = "80%";
-        message.style.color = "red";
-        location.appendChild(message);
+        activities_message.innerHTML = " (Please choose an Activity)";
+        activities_message.style.fontSize = "80%";
+        activities_message.style.color = "red";
+        location.appendChild(activities_message);
         location.style.color = "red";
     }
     if(!valid_credit(credit_field.value) && payment_menu[1].value === "credit card"){
