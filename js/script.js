@@ -161,8 +161,6 @@ const activities_field = document.querySelectorAll(".activities input");
 const credit_field = document.getElementById("cc-num");
 const zipcode_field =document.getElementById("zip");
 const cvv_field = document.getElementById("cvv");
-const activities_message = document.querySelector(".activities");
-
 
 
 //*********Validation functions***********//
@@ -367,8 +365,12 @@ credit_field.addEventListener('input', createListenerCredit(valid_credit));
 zipcode_field.addEventListener('input', createListenerZip(valid_zip));
 cvv_field.addEventListener('input', createListenerCvv(valid_cvv));
 
+//Global variable for register button. 
+
 const register_button = document.querySelector("form");
 
+/*This adds a Listener to the Register button. When the register button is pressed. All fields are checked for valid Info,
+if a field is blank or requirements are not met. Alert messages display in the appropriate area.*/
 
 register_button.addEventListener('submit', (e) => {
     if(!valid_name(name_field.value)){
@@ -385,7 +387,7 @@ register_button.addEventListener('submit', (e) => {
     }
     if(!activity_selected()){
         const message = document.createElement("span");
-        const location = activities_message.firstElementChild;
+        const location = activities.firstElementChild;
         message.innerHTML = " (Please choose an Activity)";
         message.style.fontSize = "80%";
         message.style.color = "red";
