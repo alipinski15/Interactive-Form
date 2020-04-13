@@ -35,6 +35,10 @@ const cvv_field = document.getElementById("cvv");
 const register_button = document.querySelector("form");
 const activities_message = document.createElement("span");
 
+document.querySelectorAll("#payment option")[1].selected = true;
+document.querySelector("#paypal").hidden = true;
+document.querySelector("#bitcoin").hidden = true;
+
 //This function places 'Focus' on the 'input' with the ID of "name".
 
 const focus_name = () => {
@@ -83,8 +87,7 @@ const colorMenu_hide = () => {
     menu_message.innerHTML = "Please select a shirt design";
     color_menu.style.display = "none";
 }
-console.log(colorMenu_hide());
-
+colorMenu_hide();
 
 /*Creates an Event Listener on the Design menu. Selecting the theme 'JS Puns'
 option, only shows the JS Puns color options in the Color drop down menu. Selecting 
@@ -101,8 +104,6 @@ design_select.addEventListener("change", (e) => {
     for(let i = 1; i < shirt_options.length; i++){
         shirt_options[i].style.display = "none";
         if(e.target.value === js_puns.value){
-            color_menu.style.display = "inherit";
-            color_menu.nextElementSibling.remove();
             shirt_options[1].selected = true;
             shirt_options[1].style.display = "block";
             shirt_options[2].style.display = "block";
@@ -113,6 +114,10 @@ design_select.addEventListener("change", (e) => {
             shirt_options[5].style.display = "block";
             shirt_options[6].style.display = "block";
         }
+    }
+    if(e.target.value && color_menu.nextElementSibling){
+        color_menu.style.display = "inherit";
+        color_menu.nextElementSibling.remove();
     }
 });
 
