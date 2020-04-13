@@ -404,7 +404,7 @@ register_button.addEventListener('submit', (e) => {
     } 
     if(!valid_email(email_field.value)){
         email_field.style.borderColor = "red";
-        email_field.previousElementSibling.textContent = "An email address is required";
+        email_field.previousElementSibling.textContent = "A vaild email address is required";
         email_field.previousElementSibling.style.color = "red";
         e.preventDefault();
     }
