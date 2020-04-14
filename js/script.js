@@ -276,7 +276,7 @@ function activity_selected(){
    Once requirements are correct, the Title turns green. */
 
 function valid_credit(cardNum){
-    return /^\d{4}-?\d{4}-?\d{4}-?\d{4}|\d{3}-?\d{3}-?\d{3}-?\d{3}$/.test(cardNum);
+    return /^[0-9]{13,16}$/.test(cardNum);
 }
 function credit_tip_showORHide(show, element, blank){
     if(show){
